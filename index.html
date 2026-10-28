@@ -14257,5 +14257,44 @@ document.addEventListener('keydown', function(e){
 <script src="js/oasis-news.js" defer></script>
 <script src="js/library.js?v=1.5.0" defer></script>
 <script src="js/shareTarget.js" defer></script>
+<!-- OASIS-ROUTER:START -->
+<script>
+(function(){
+  var PAGE="home", ROUTES={"home": "index.html", "calculator": "adult.html", "pedi": "pediatric.html", "enteral": "enteral.html", "parenteral": "parenteral.html", "anthro": "anthropometry.html", "nfpe": "nfpe.html", "screening": "screening.html", "assessments": "assessments.html", "dni": "drug-nutrient.html", "recall": "recall.html", "mealplan": "meal-planner.html", "recipe": "recipes.html", "database": "food-database.html", "history": "history.html", "reference": "reference.html", "news": "news.html", "library": "library.html"}, TITLES={"home": null, "calculator": "Oasis \u2014 Adult Calculator", "pedi": "Oasis \u2014 Pediatric Nutrition", "enteral": "Oasis \u2014 Enteral Feeding", "parenteral": "Oasis \u2014 Parenteral Nutrition", "anthro": "Oasis \u2014 Anthropometry", "nfpe": "Oasis \u2014 NFPE", "screening": "Oasis \u2014 Nutrition Screening", "assessments": "Oasis \u2014 Assessments", "dni": "Oasis \u2014 Drug-Nutrient Interactions", "recall": "Oasis \u2014 24-Hour Recall", "mealplan": "Oasis \u2014 Meal Planner", "recipe": "Oasis \u2014 Recipe Calculator", "database": "Oasis \u2014 Food Database", "history": "Oasis \u2014 History", "reference": "Oasis \u2014 Reference", "news": "Oasis \u2014 Nutrition News", "library": "Oasis \u2014 Library"};
+  var HOME_TITLE=document.title;
+  function urlFor(n){ return n==='home' ? '/' : '/'+ROUTES[n]; }
+  function tabFromPath(p){
+    p=p.replace(/\/index\.html$/,'/');
+    if(p==='/'||p==='') return 'home';
+    var f=p.replace(/^\//,'').replace(/\/$/,''); if(!/\.html$/.test(f)) f+='.html';
+    for(var k in ROUTES) if(ROUTES[k]===f) return k;
+    return null;
+  }
+  window.OASIS_ROUTES=ROUTES; window.OASIS_PAGE=PAGE;
+  window.addEventListener('load',function(){
+    var orig=window.switchTab; if(typeof orig!=='function') return;
+    var popping=false;
+    window.switchTab=function(name){
+      var r=orig.apply(this,arguments);
+      try{
+        if(ROUTES[name]){
+          document.title=TITLES[name]||HOME_TITLE;
+          var u=urlFor(name);
+          if(!popping && location.pathname!==u) history.pushState({tab:name},'',u+location.search);
+        }
+      }catch(e){}
+      return r;
+    };
+    window.addEventListener('popstate',function(e){
+      var n=(e.state&&e.state.tab)||tabFromPath(location.pathname)||'home';
+      popping=true; try{ window.switchTab(n); }finally{ popping=false; }
+    });
+    var start=tabFromPath(location.pathname)||PAGE;   // also lets the SW serve the shell for any section URL offline
+    try{ history.replaceState({tab:start},'',location.pathname+location.search+location.hash); }catch(e){}
+    if(start!=='home'||PAGE!=='home') window.switchTab(start);
+  });
+})();
+</script>
+<!-- OASIS-ROUTER:END -->
 </body>
 </html>

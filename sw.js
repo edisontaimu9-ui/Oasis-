@@ -334,7 +334,10 @@ self.addEventListener('fetch', e => {
         return res;
       }).catch(() =>
         // Network failed — try cache, then fall back to offline page
-        caches.match(e.request).then(cached => cached || caches.match(OFFLINE_URL))
+        caches.match(e.request).then(cached => cached ||
+          // Section pages (/adult.html etc.) are the same app shell; the router picks the
+          // section from the URL, so any section works offline once the shell is cached.
+          caches.match(self.registration.scope).then(shell => shell || caches.match(OFFLINE_URL)))
       )
     );
     return;
