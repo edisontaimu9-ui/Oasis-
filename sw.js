@@ -319,7 +319,8 @@ self.addEventListener('fetch', e => {
   // Network-only: never serve or store a cached snapshot here, or
   // rebuildPackagedFoodIndex() silently keeps re-reading a stale response
   // forever regardless of what the API actually returns now.
-  if (url.hostname.includes('chakudya-api')) {
+  if (url.hostname.includes('chakudya-api') ||
+      (url.hostname.includes('oasis-ai-proxy-worker') && url.pathname.startsWith('/cnr/'))) {
     e.respondWith(fetch(e.request));
     return;
   }
