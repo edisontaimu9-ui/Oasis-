@@ -56,6 +56,7 @@ const CORE_ASSETS = [
   'js/modules/low-resource-enteral.js',
   'js/modules/meal-plan-generator-sync.js',
   'js/modules/food-search-fallback-ui.js',
+  'js/cnr.js',
   'js/library.js',
   'manifest.json',
   // Logo images painted before any auth/network state is known (splash
