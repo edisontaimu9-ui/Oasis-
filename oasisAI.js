@@ -25,7 +25,7 @@
   const GROQ_API_URL  = 'https://oasis-ai-proxy-worker.edisontaimu9.workers.dev/groq';
   const GROQ_MODEL    = 'openai/gpt-oss-120b';
   const MAX_TOKENS    = 1400;
-  const RAG_URL       = 'https://chakudya-api.edisontaimu9.workers.dev/rag/retrieve';
+  const RAG_URL       = 'https://api.chakudya.xyz/rag/retrieve';
   // RAG Knowledge Base: ~6,100 chunks — ESPEN/ASPEN guidelines, Malawi CMAM 2016,
   // Malawi FCT, Exchange Lists, Renal Foods, Enteral Formulas, Burns, Oncology,
   // IBD, Dementia, TB, Cystic Fibrosis, Surgical/Parenteral Nutrition, and more.
@@ -878,7 +878,7 @@ Formatting principles (secondary to the guardrails above):
   // All five endpoints are public GET routes (no auth required) — see
   // chakudya-api README §Authentication Model.
   // ════════════════════════════════════════════════════════════
-  const CHAKUDYA_API_BASE = 'https://chakudya-api.edisontaimu9.workers.dev';
+  const CHAKUDYA_API_BASE = 'https://api.chakudya.xyz';
 
   const _ChakudyaDB = {
     async _get(path, params = {}) {

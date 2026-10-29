@@ -156,7 +156,7 @@
   // Single source of truth for external food/formula lookups (Layers 2, 2b, 2c).
   // The worker cascades server-side (its own tables → USDA FDC → Open Food
   // Facts → FatSecret for /foods/lookup), so the client holds no API keys.
-  const CHAKUDYA_BASE = 'https://chakudya-api.edisontaimu9.workers.dev';
+  const CHAKUDYA_BASE = 'https://api.chakudya.xyz';
 
   // ── REGIONAL SYNONYM MAP ──────────────────────────────────────────────────
   // Maps alternative / regional names → canonical local-DB / CNR search term(s).
